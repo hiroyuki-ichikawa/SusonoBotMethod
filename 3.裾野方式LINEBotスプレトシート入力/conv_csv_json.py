@@ -7,16 +7,15 @@ args = sys.argv
 
 filename = './' + args[1]
 
-
 with open(filename, 'r') as f:
 	reader = csv.reader(f)
 	header = next(reader)  # 読み込み
 
 	for row in reader:
-		print row[1]       # intentsのファイル名、名前
+		print(row[1])       # intentsのファイル名、名前
 		fname  = "./intents/" + row[1] + ".json"
 		fname2 = "./intents/" + row[1] + "_usersays_ja.json"
-		print fname
+		print(fname)
 
 		# intentsファイル
 		out_f = open(fname,'w')
