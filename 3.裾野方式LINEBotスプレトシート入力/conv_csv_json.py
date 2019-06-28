@@ -11,7 +11,7 @@ args = sys.argv
 
 filename = './' + args[1]
 
-with open(filename, 'r',encoding="utf-8_sig") as f:
+with open(filename, 'r') as f:
 	reader = csv.reader(f)
 	header = next(reader)  # 読み込み
 
@@ -22,7 +22,7 @@ with open(filename, 'r',encoding="utf-8_sig") as f:
 		print(fname)
 
 		# intentsファイル
-		out_f = open(fname,'w')
+		out_f = open(fname,'w',encoding="utf-8_sig")
 		id = "".join(map(lambda t: format(t, "02X"), [random.randrange(256) for x in range(4)])) + "-" +"".join(map(lambda t: format(t, "02X"), [random.randrange(256) for x in range(2)])) + "-" + "".join(map(lambda t: format(t, "02X"), [random.randrange(256) for x in range(2)])) + "-" + "".join(map(lambda t: format(t, "02X"), [random.randrange(256) for x in range(2)])) + "-" + "".join(map(lambda t: format(t, "02X"), [random.randrange(256) for x in range(6)]))
 		#out_f.write( id )
 		out_f.write('{\n')
@@ -135,7 +135,7 @@ with open(filename, 'r',encoding="utf-8_sig") as f:
 		out_f.close
 
 		#intentsのTraining pharaases
-		out_f = open(fname2,'w')
+		out_f = open(fname2,'w',encoding="utf-8_sig")
 		id = "".join(map(lambda t: format(t, "02X"), [random.randrange(256) for x in range(4)])) + "-" +"".join(map(lambda t: format(t, "02X"), [random.randrange(256) for x in range(2)])) + "-" + "".join(map(lambda t: format(t, "02X"), [random.randrange(256) for x in range(2)])) + "-" + "".join(map(lambda t: format(t, "02X"), [random.randrange(256) for x in range(2)])) + "-" + "".join(map(lambda t: format(t, "02X"), [random.randrange(256) for x in range(6)]))
 		out_f.write('[\n\t{\n')
 		str = "\t\t\"id\" : \"" + id + "\",\n"
