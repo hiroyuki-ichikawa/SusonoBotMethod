@@ -21,6 +21,9 @@ with open(filename, 'r') as f:
 		fname2 = "./intents/" + row[1] + "_usersays_ja.json"
 		print(fname)
 
+		# Flag
+		LineFlag = 0
+
 		# intentsファイル
 		out_f = open(fname,'w',encoding="utf-8_sig")
 		id = "".join(map(lambda t: format(t, "02X"), [random.randrange(256) for x in range(4)])) + "-" +"".join(map(lambda t: format(t, "02X"), [random.randrange(256) for x in range(2)])) + "-" + "".join(map(lambda t: format(t, "02X"), [random.randrange(256) for x in range(2)])) + "-" + "".join(map(lambda t: format(t, "02X"), [random.randrange(256) for x in range(2)])) + "-" + "".join(map(lambda t: format(t, "02X"), [random.randrange(256) for x in range(6)]))
@@ -55,16 +58,19 @@ with open(filename, 'r') as f:
 		str = "\t\t\t\"type\" : 0, \"lang\" : \"ja\", \"speech\" : []\n"
 		out_f.write(str)			# LINE用に追加するならこの行の次に入れる
 		if len(row[6])>0:			# LINE用の文字列
+			LineFlag = 1
 			str = "\t\t\t},{\n"
 			out_f.write(str)
 			str = "\t\t\t\"type\" : 0, \"platform\" : \"line\", \"lang\" : \"ja\", \"speech\" : \"" + row[6] + "\"\n"
 			out_f.write(str)
 		if len(row[7])>0:			# LINE用の画像
+			LineFlag = 1
 			str = "\t\t\t},{\n"
 			out_f.write(str)
 			str = "\t\t\t\"type\" : 3, \"platform\" : \"line\", \"lang\" : \"ja\", \"imageUrl\" : \"" + row[7] + "\"\n"
 			out_f.write(str)
 		if len(row[8])>0:			# LINE用のボタン型選択肢
+			LineFlag = 1
 			str = "\t\t\t},{\n"
 			out_f.write(str)
 			str = "\t\t\t\"type\" : 2, \"platform\" : \"line\", \"lang\" : \"ja\", \"title\" : \"" + row[8] + "\", \"replies\" : ["
@@ -81,6 +87,7 @@ with open(filename, 'r') as f:
 			str = "]\n"
 			out_f.write(str)
 		if len(row[12])>0:			# LINE用の画像付きボタン
+			LineFlag = 1
 			str = "\t\t\t},{\n"
 			out_f.write(str)
 			str = "\t\t\t\"type\" : 1, \"platform\" : \"line\", \"lang\" : \"ja\", \"title\" : \"" + row[12] + "\" , \"subtitle\" : \"" + row[13] + "\" , \"imageUrl\" : \"" + row[14] + "\" , \"buttons\" : ["
@@ -114,6 +121,7 @@ with open(filename, 'r') as f:
 			out_f.write(str)
 
 		if len(row[21])>0:			# LINE用のCustom
+			LineFlag = 1
 			str = "\t\t\t},{\n"
 			out_f.write(str)
 			str = "\t\t\t\"type\" : 4, \"platform\" : \"line\", \"lang\" : \"ja\", \"payload\" : { \"line\" : " + row[21] + " }"
@@ -122,7 +130,12 @@ with open(filename, 'r') as f:
 		# LINE用終わり
 		str = "\t\t\t}\n\t\t],\n"
 		out_f.write(str)
-		str = "\t\t\"defaultResponsePlatforms\" : {},\n"
+
+		if LineFlag > 0:
+			str = "\t\t\"defaultResponsePlatforms\" : {},\n"
+		else:
+			str = "\t\t\"defaultResponsePlatforms\": {\"line\": true},\n"
+
 		out_f.write(str)
 		str = "\t\t\"speech\" : []\n"
 		out_f.write(str)
