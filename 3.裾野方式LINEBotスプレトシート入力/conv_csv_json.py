@@ -47,7 +47,7 @@ with open(filename, 'r') as f:
 		out_f.write(str)
 		str = "\t\t\"parameters\": [],\n"
 		out_f.write(str)
-		str = "\t\t\"messages\": [,\n"
+		str = "\t\t\"messages\": [\n"
 		out_f.write(str)
 		str = "\t\t\t{\n"			# 通常メッセージの始まり
 		out_f.write(str)
