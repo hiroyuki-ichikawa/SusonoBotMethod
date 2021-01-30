@@ -11,7 +11,7 @@ args = sys.argv
 
 filename = './' + args[1]
 
-with open(filename, 'r') as f:
+with open(filename, 'r', encoding="utf-8_sig") as f:
 	reader = csv.reader(f)
 	header = next(reader)  # 読み込み
 
